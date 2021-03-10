@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Entities.Abstract;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Entities
 {
-    class Car
+    public class Car : IEntity
     {
         public int CarId { get; set; }
         public int BrandId { get; set; }
