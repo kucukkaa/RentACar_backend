@@ -7,11 +7,11 @@ using System.Text;
 
 namespace DataAccess.Concrete
 {
-    public class InMemoryProductDal : IProductDal
+    public class InMemoryCarDal : ICarDal
     {
 
         List<Car> _cars;
-        public InMemoryProductDal()
+        public InMemoryCarDal()
         {
             _cars = new List<Car>
             {
@@ -27,9 +27,9 @@ namespace DataAccess.Concrete
             _cars.Add(car);
         }
 
-        public void Delete(Car car)
+        public void Delete(int Id)
         {
-            Car carToDelete = _cars.SingleOrDefault(c => c.CarId == car.CarId);
+            Car carToDelete = _cars.SingleOrDefault(c => c.CarId == Id);
             _cars.Remove(carToDelete);
         }
 
@@ -55,8 +55,7 @@ namespace DataAccess.Concrete
             _tempCar.Add(carToShow);
             return _tempCar;
 
-            //var _tempCar = _cars.Where(c => c.CarId == Id);
-            //return _tempCar;
+            
 
         }
     }
