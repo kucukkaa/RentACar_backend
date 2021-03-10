@@ -50,13 +50,12 @@ namespace DataAccess.Concrete
 
         public List<Car> GetById(int Id)
         {
-            List<Car> _tempCar = new List<Car>();
-            Car carToShow = _cars.SingleOrDefault(c => c.CarId == Id);
-            _tempCar.Add(carToShow);
-            return _tempCar;
+            //List<Car> _tempCar = new List<Car>();
+            //Car carToShow = _cars.SingleOrDefault(c => c.CarId == Id);
+            //_tempCar.Add(carToShow);
+            //return _tempCar;
 
-            
-
+            return _cars.Where(c => c.CarId == Id).ToList();
         }
     }
 }
