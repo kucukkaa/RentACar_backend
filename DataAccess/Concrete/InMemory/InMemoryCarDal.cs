@@ -34,10 +34,10 @@ namespace DataAccess.Concrete
             _cars.Remove(carToDelete);
         }
 
-        public List<Car> GetAll()
-        {
-            return _cars;
-        }
+        //public List<Car> GetAll()
+        //{
+        //    return _cars;
+        //}
                 
         public void Update(Car car)
         {
@@ -61,7 +61,9 @@ namespace DataAccess.Concrete
 
         public List<Car> GetAll(Expression<Func<Car, bool>> filter = null)
         {
-            throw new NotImplementedException();
+            var abc = filter.Compile();
+
+            return abc == null ? _cars : _cars.Where(abc).ToList();
         }
 
         public Car Get(Expression<Func<Car, bool>> filter)
