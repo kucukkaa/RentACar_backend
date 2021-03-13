@@ -3,17 +3,23 @@ using Entities.Concrete;
 using System;
 using System.Collections.Generic;
 using DataAccess.Abstract;
+using DataAccess.Abstract;
 using System.Text;
 
 namespace Business.Concrete
 {
-    class BrandManager : IBrandService
+    public class BrandManager : IBrandService
     {
 
         IBrandDal _brandDal;
+
+        public BrandManager(IBrandDal brandDal)
+        {
+            _brandDal = brandDal;
+        }
         public List<Brand> GetBrands()
         {
-            throw new NotImplementedException();
+            return _brandDal.GetAll();
         }
     }
 }
