@@ -20,9 +20,13 @@ namespace Business.Concrete
         public void AddBrand(Brand brand)
         {
 
-            if (brand.BrandName.Length < 2)
+            if (brand.BrandName.Length > 2)
             {
                 _brandDal.Add(brand);
+            }
+            else
+            {
+                Console.WriteLine("marka ismi en az 2 karakterden oluşmalıdır!");
             }
             
         }

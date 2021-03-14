@@ -35,7 +35,7 @@ namespace ConsoleUI
             BrandManager brandManager = new BrandManager(new EfBrandDal());
 
             var brand1 = new Brand();
-            brand1.BrandId = 5;
+            brand1.BrandId = 6;
 
             brandManager.DeleteBrand(brand1);
         }
