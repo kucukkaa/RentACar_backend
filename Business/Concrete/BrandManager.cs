@@ -19,7 +19,12 @@ namespace Business.Concrete
 
         public void AddBrand(Brand brand)
         {
-            _brandDal.Add(brand);
+
+            if (brand.BrandName.Length < 2)
+            {
+                _brandDal.Add(brand);
+            }
+            
         }
 
         public void DeleteBrand(Brand brand)
