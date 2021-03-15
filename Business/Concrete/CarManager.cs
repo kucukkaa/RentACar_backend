@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities;
 using Entities.DTOs;
@@ -19,44 +21,47 @@ namespace Business.Concrete
         }
 
         
-        public void AddCar(Car car)
+        public IResult AddCar(Car car)
         {
             _carDal.Add(car);
+            return new SuccessResult(Message.CarAdded);
         }
 
-        public void DeleteCar(Car car)
+        public IResult DeleteCar(Car car)
         {
             _carDal.Delete(car);
+            return new SuccessResult(Message.CarDeleted);
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll());
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return _carDal.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
-        public List<Car> GetCarsByBrandId(int Id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int Id)
         {
-            return _carDal.GetAll(p => p.BrandId == Id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == Id));
         }
 
-        public List<Car> GetCarsByColorId(int Id)
+        public IDataResult<List<Car>> GetCarsByColorId(int Id)
         {
-            return _carDal.GetAll(p => p.ColorId == Id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == Id));
         }
 
-        public List<Car> GetCarsByDailyPrice(decimal min, decimal max)
+        public IDataResult<List<Car>> GetCarsByDailyPrice(decimal min, decimal max)
         {
-            return _carDal.GetAll(p => p.DailyPrice <= max && p.DailyPrice >= min);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice <= max && p.DailyPrice >= min));
         }
 
-        public void UpdateCar(Car car)
+        public IResult UpdateCar(Car car)
         {
             _carDal.Update(car);
+            return new SuccessResult(Message.CarUpdated);
         }
     }
 }

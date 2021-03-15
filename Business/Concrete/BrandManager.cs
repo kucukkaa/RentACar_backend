@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using DataAccess.Abstract;
 using System.Text;
 using Core.Utilities.Results;
+using Business.Constants;
 
 namespace Business.Concrete
 {
@@ -18,33 +19,36 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
-        public void AddBrand(Brand brand)
+        public IResult AddBrand(Brand brand)
         {
 
             if (brand.BrandName.Length > 2)
             {
                 _brandDal.Add(brand);
+                return new SuccessResult(Message.BrandAdded);
             }
             else
             {
-                Console.WriteLine("marka ismi en az 2 karakterden oluşmalıdır!");
+                return new ErrorResult(Message.BrandNameInvalid);
             }
             
         }
 
-        public void DeleteBrand(Brand brand)
+        public IResult DeleteBrand(Brand brand)
         {
             _brandDal.Delete(brand);
+            return new SuccessResult(Message.BrandDeleted);
         }
 
-        public List<Brand> GetBrands()
+        public IDataResult<List<Brand>> GetBrands()
         {
-            return _brandDal.GetAll();
+            return new SuccessDataResult<List<Brand>>(_brandDal.GetAll());
         }
 
-        public void UpdateBrand(Brand brand)
+        public IResult UpdateBrand(Brand brand)
         {
             _brandDal.Update(brand);
+            return new SuccessResult(Message.BrandUpdated);
         }
     }
 }

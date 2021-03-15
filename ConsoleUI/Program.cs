@@ -11,23 +11,22 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
-            //GetAllCarsTest();
-            //AddingANewCar();
-            //DeleteACarTest();
-            //UpdateACarTest();
-
             //AddANewColorTest();
             //UpdateAColorTest();
             //DeleteAColorTest();
-            //GetAllColorTest();
-
+            GetAllColorTest();
 
             //AddANewBrand();
             //UpdateANewBrand();
             //DeleteABrand();
+            //GetAllBrandsTest();
 
-            GetAllBrandsTest();
-
+            //GetAllCarsTest();
+            //AddingANewCar();
+            //DeleteACarTest();
+            //UpdateACarTest();
+            
+            //GetAllCarsTest();
         }
 
         private static void DeleteABrand()
@@ -35,7 +34,7 @@ namespace ConsoleUI
             BrandManager brandManager = new BrandManager(new EfBrandDal());
 
             var brand1 = new Brand();
-            brand1.BrandId = 6;
+            brand1.BrandId = 3;
 
             brandManager.DeleteBrand(brand1);
         }
@@ -54,8 +53,9 @@ namespace ConsoleUI
         private static void AddANewBrand()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
+
             var brand1 = new Brand();
-            brand1.BrandName = "Hyundai";
+            brand1.BrandName = "Renault";
 
             brandManager.AddBrand(brand1);
         }
@@ -63,11 +63,20 @@ namespace ConsoleUI
         private static void GetAllBrandsTest()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
+            var result = brandManager.GetBrands();
 
-            foreach (var brand in brandManager.GetBrands())
+            if (result.Success)
             {
-                Console.WriteLine(brand.BrandId + " / " + brand.BrandName);
+                foreach (var brand in result.Data)
+                {
+                    Console.WriteLine(brand.BrandId + " / " + brand.BrandName);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
         }
 
         private static void DeleteAColorTest()
@@ -83,6 +92,7 @@ namespace ConsoleUI
         private static void UpdateAColorTest()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
+
             var color1 = new Color();
             color1.ColorId = 2;
             color1.ColorName = "Orange";
@@ -93,10 +103,21 @@ namespace ConsoleUI
         private static void GetAllColorTest()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetColors())
+            var result = colorManager.GetColors();
+
+            if (result.Success)
             {
-                Console.WriteLine(color.ColorId + "/" + color.ColorName);
+                foreach (var color in result.Data)
+                {
+                    Console.WriteLine(color.ColorId + "/" + color.ColorName);
+                }
+                Console.WriteLine(result.Message); //listleme işlemine eklenen mesaj
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
         }
 
         private static void AddANewColorTest()
@@ -104,9 +125,10 @@ namespace ConsoleUI
             ColorManager colorManager = new ColorManager(new EfColorDal());
 
             var color1 = new Color();
-            color1.ColorName = "Yellow";
+            color1.ColorName = "White";
 
-            colorManager.AddColor(color1);
+            var result = colorManager.AddColor(color1); //addcolor işleminin ilettiği mesajı görmek için
+            Console.WriteLine(result.Message);
         }
 
         private static void UpdateACarTest()
@@ -115,13 +137,13 @@ namespace ConsoleUI
 
             var car1 = new Car();
             car1.CarId = 1;
-            car1.DailyPrice = 10000;
+            car1.DailyPrice = 200;
             car1.BrandId = 1;
-            car1.ColorId = 3;
+            car1.ColorId = 1;
             car1.Description = "nice car";
             car1.ModelYear = 2021;
 
-            
+
             carManager.UpdateCar(car1);
         }
 
@@ -129,7 +151,7 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
             var car1 = new Car();
-            car1.CarId = 7;
+            car1.CarId = 2;
 
             carManager.DeleteCar(car1);
         }
@@ -141,7 +163,7 @@ namespace ConsoleUI
             var car1 = new Car();
             car1.BrandId = 3;
             car1.ColorId = 2;
-            car1.DailyPrice = 500;
+            car1.DailyPrice = 7000;
             car1.Description = "good car";
             car1.ModelYear = 2001;
 
@@ -152,10 +174,21 @@ namespace ConsoleUI
         {
             CarManager carManager = new CarManager(new EfCarDal());
 
-            foreach (var car in carManager.GetCarDetails())
+            var result = carManager.GetCarDetails();
+
+            if (result.Success == true)
             {
-                Console.WriteLine(car.CarId + " / " + car.BrandName + " / " + car.ColorName + " / " + car.DailyPrice);
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.CarId + " / " + car.BrandName + " / " + car.ColorName + " / " + car.DailyPrice);
+                }
             }
+            else
+            {
+                Console.WriteLine(result.Message);
+            }
+
+
         }
     }
 }
