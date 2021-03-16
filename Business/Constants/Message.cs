@@ -17,5 +17,14 @@ namespace Business.Constants
         public static string ColorDeleted = "Renk Silindi!";
         public static string ColorUpdated = "Renk Bilgileri Güncellendi!";
         public static string AllColors = "Tüm Renkler Listelendi";
+        public static string CustomerAdded = "Yeni Müşteri Eklendi!";
+        public static string CustomerDeleted = "Müşteri Silindi!";
+        public static string CustomerUpdated = "Müşteri Bilgileri Güncellendi!";
+        public static string CarUnavailable = "Araç Müsait Değil";
+        public static string RentalAdded = "Araç Kiralandı";
+        public static string RentalDeleted = "Kiralama Kaydı Silindi!";
+        public static string RentalUpdated = "Kiralama Kaydı Güncellendi!";
+        public static string CarReturn = "Araç Teslim Alındı";
+        public static string CarReturnError = "Araç Teslim Kaydı Oluşturulamadı.Bilgileri Kontrol Ediniz!";
     }
 }

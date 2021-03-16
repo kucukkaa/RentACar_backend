@@ -14,7 +14,7 @@ namespace ConsoleUI
             //AddANewColorTest();
             //UpdateAColorTest();
             //DeleteAColorTest();
-            GetAllColorTest();
+            //GetAllColorTest();
 
             //AddANewBrand();
             //UpdateANewBrand();
@@ -25,8 +25,29 @@ namespace ConsoleUI
             //AddingANewCar();
             //DeleteACarTest();
             //UpdateACarTest();
-            
-            //GetAllCarsTest();
+
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+            //var rental1 = new Rental();
+            //rental1.CarId = 4;
+            //rental1.CustomerId = 6;
+            //rental1.RentDate = new DateTime(2021, 3, 1);
+
+
+            //rentalManager.AddRental(rental1);
+
+            foreach (var item in rentalManager.GetRentals().Data)
+            {
+                Console.WriteLine(item.ReturnDate);
+            }
+
+            BrandManager brandManager = new BrandManager(new EfBrandDal());
+
+            Console.WriteLine(brandManager.GetBrands().Data);
+
+
+
+
         }
 
         private static void DeleteABrand()
