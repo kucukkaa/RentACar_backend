@@ -4,6 +4,7 @@ using DataAccess.Concrete.EntityFramework;
 using Entities;
 using Entities.Concrete;
 using System;
+using System.Data.SqlTypes;
 
 namespace ConsoleUI
 {
@@ -17,7 +18,7 @@ namespace ConsoleUI
             //GetAllColorTest();
 
             //AddANewBrand();
-            //UpdateANewBrand();
+            //UpdateABrand();
             //DeleteABrand();
             //GetAllBrandsTest();
 
@@ -26,28 +27,48 @@ namespace ConsoleUI
             //DeleteACarTest();
             //UpdateACarTest();
 
+            //AddNewRental();
+            //RentalList();
+
+            //CarReturn();
+
+        }
+
+        private static void CarReturn()
+        {
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
 
-            //var rental1 = new Rental();
-            //rental1.CarId = 4;
-            //rental1.CustomerId = 6;
-            //rental1.RentDate = new DateTime(2021, 3, 1);
+            var result = rentalManager.RentedCarReturn(7);
 
+            Console.WriteLine(result.Message);
+        }
 
-            //rentalManager.AddRental(rental1);
+        private static void RentalList()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
 
-            foreach (var item in rentalManager.GetRentals().Data)
+            var result = rentalManager.GetRentalDetails();
+
+            foreach (var item in result.Data)
             {
-                Console.WriteLine(item.ReturnDate);
+                Console.WriteLine(item.RentalId + " / " + item.CarId + " / " + item.CustomerName + " / " + item.RentDate + " / " + item.ReturnDate + " / " + item.BrandName + " / " + item.ColorName);
             }
+        }
 
-            BrandManager brandManager = new BrandManager(new EfBrandDal());
+        private static void AddNewRental()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
 
-            Console.WriteLine(brandManager.GetBrands().Data);
+            var rental1 = new Rental();
+            rental1.CarId = 7;
+            rental1.CustomerId = 7;
+            rental1.RentDate = DateTime.Now;
 
 
 
+            var result = rentalManager.AddRental(rental1);
 
+            Console.WriteLine(result.Message);
         }
 
         private static void DeleteABrand()
@@ -60,7 +81,7 @@ namespace ConsoleUI
             brandManager.DeleteBrand(brand1);
         }
 
-        private static void UpdateANewBrand()
+        private static void UpdateABrand()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
 
@@ -177,7 +198,7 @@ namespace ConsoleUI
             carManager.DeleteCar(car1);
         }
 
-        private static void AddingANewCar()
+        private static void AddingANewCarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
 

@@ -3,6 +3,7 @@ using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -24,7 +25,7 @@ namespace Business.Concrete
 
             foreach (var rentalItem in _rentalDal.GetAll())
             {
-                if (rentalItem.CarId == rental.CarId && rentalItem.ReturnDate == null)
+                if (rentalItem.CarId == rental.CarId && rentalItem.ReturnDate == null) 
                 {
                     addable = false;
                     break;
@@ -49,6 +50,11 @@ namespace Business.Concrete
             return new SuccessResult(Message.RentalDeleted);
         }
 
+        public IDataResult<List<RentalDetailDto>> GetRentalDetails()
+        {
+            return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
+        }
+
         public IDataResult<List<Rental>> GetRentals()
         {
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
@@ -61,6 +67,7 @@ namespace Business.Concrete
                 if (rentalItem.CarId == id && rentalItem.ReturnDate == null)
                 {
                     rentalItem.ReturnDate = DateTime.Now;
+                    UpdateRental(rentalItem);
                     return new SuccessResult(Message.CarReturn);
                 }
             }
