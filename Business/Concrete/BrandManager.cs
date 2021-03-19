@@ -6,6 +6,8 @@ using DataAccess.Abstract;
 using System.Text;
 using Core.Utilities.Results;
 using Business.Constants;
+using FluentValidation;
+using Business.ValidationRules.FluentValidation;
 
 namespace Business.Concrete
 {
@@ -22,16 +24,16 @@ namespace Business.Concrete
         public IResult AddBrand(Brand brand)
         {
 
-            if (brand.BrandName.Length > 2)
+            var context = new ValidationContext<Brand>(brand);
+            BrandValidator productValidator = new BrandValidator();
+            var result = productValidator.Validate(context);
+            if (!result.IsValid)
             {
-                _brandDal.Add(brand);
-                return new SuccessResult(Message.BrandAdded);
-            }
-            else
-            {
-                return new ErrorResult(Message.BrandNameInvalid);
+                throw new ValidationException(result.Errors);
             }
             
+            _brandDal.Add(brand);
+            return new SuccessResult(Message.BrandAdded);
         }
 
         public IResult DeleteBrand(Brand brand)
