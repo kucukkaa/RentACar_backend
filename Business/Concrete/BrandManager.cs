@@ -8,6 +8,8 @@ using Core.Utilities.Results;
 using Business.Constants;
 using FluentValidation;
 using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
+using Core.Aspects.Autofac.Validation;
 
 namespace Business.Concrete
 {
@@ -21,17 +23,10 @@ namespace Business.Concrete
             _brandDal = brandDal;
         }
 
+
+        [ValidationAspect(typeof(BrandValidator))]
         public IResult AddBrand(Brand brand)
         {
-
-            var context = new ValidationContext<Brand>(brand);
-            BrandValidator productValidator = new BrandValidator();
-            var result = productValidator.Validate(context);
-            if (!result.IsValid)
-            {
-                throw new ValidationException(result.Errors);
-            }
-            
             _brandDal.Add(brand);
             return new SuccessResult(Message.BrandAdded);
         }
