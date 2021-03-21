@@ -27,5 +27,9 @@ namespace Business.Constants
         public static string CarReturn = "Araç Teslim Alındı";
         public static string CarReturnError = "Araç Teslim Kaydı Oluşturulamadı.Bilgileri Kontrol Ediniz!";
         public static string CarImageAdded = "Araç İçin Resim Eklendi";
+        public static string CarImageDeleted = "Araç Resmi Silindi";
+        public static string CarImageUpdated = "Araç Resmi Güncellendi";
+        public static string CarImageLimitExceded = "Bir Araç İçin En Fazla 5 Resim Eklenebilir";
+        public static string CarImageCantAdded = "Araç Resmi Eklenemedi. Lütfen bilgileri kontrol ediniz.";
     }
 }

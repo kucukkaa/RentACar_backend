@@ -23,7 +23,7 @@ namespace ConsoleUI
             //GetAllBrandsTest();
 
             //GetAllCarsTest();
-            //AddingANewCar();
+            //AddingANewCarTest();
             //DeleteACarTest();
             //UpdateACarTest();
 
@@ -38,11 +38,11 @@ namespace ConsoleUI
 
         private static void AddCarImageTest()
         {
-            CarImagesManager carImagesManager = new CarImagesManager(new EfCarImageDal());
+            CarImageManager carImagesManager = new CarImageManager(new EfCarImageDal());
             var carImage1 = new CarImage();
             carImage1.CarId = 2;
             carImage1.Date = DateTime.Now;
-            carImage1.ImagePath = @"D:\aa\WhatsApp Images\IMG-20201209-WA0012.jpg";
+            carImage1.ImagePath = @"D:\alierk\ilgi\Camera\20150428_103002.jpg";
 
             carImagesManager.AddImage(carImage1);
         }
