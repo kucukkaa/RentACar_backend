@@ -2,6 +2,7 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -25,27 +26,15 @@ namespace Business.Concrete
         [ValidationAspect(typeof(RentalValidator))]
         public IResult AddRental(Rental rental)
         {
-            var addable = true;
+            IResult result = BusinessRules.Run(IsCarAvaibleForRent(rental.CarId));
 
-            foreach (var rentalItem in _rentalDal.GetAll())
+            if (result != null)
             {
-                if (rentalItem.CarId == rental.CarId && rentalItem.ReturnDate == null) 
-                {
-                    addable = false;
-                    break;
-                }
+                return result;
             }
 
-            if(addable)
-            {
-                _rentalDal.Add(rental);
-                return new SuccessResult(Message.RentalAdded);
-            }
-            else
-            {
-                return new ErrorResult(Message.CarUnavailable);
-            }
-
+            _rentalDal.Add(rental);
+            return new SuccessResult(Message.RentalAdded);
         }
 
         public IResult DeleteRental(Rental rental)
@@ -75,7 +64,7 @@ namespace Business.Concrete
                     return new SuccessResult(Message.CarReturn);
                 }
             }
-            
+
             return new ErrorResult(Message.CarReturnError);
         }
 
@@ -84,5 +73,18 @@ namespace Business.Concrete
             _rentalDal.Update(rental);
             return new SuccessResult(Message.RentalUpdated);
         }
+
+        private IResult IsCarAvaibleForRent(int carId)
+        {
+            foreach (var rentalItem in _rentalDal.GetAll())
+            {
+                if (rentalItem.CarId == carId && rentalItem.ReturnDate == null)
+                {
+                    return new ErrorResult(Message.CarUnavailable);
+                }
+            }
+            return new SuccessResult();
+        }
+
     }
 }

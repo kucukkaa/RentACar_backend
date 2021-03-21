@@ -32,6 +32,19 @@ namespace ConsoleUI
 
             //CarReturn();
 
+
+            AddCarImageTest();
+        }
+
+        private static void AddCarImageTest()
+        {
+            CarImagesManager carImagesManager = new CarImagesManager(new EfCarImageDal());
+            var carImage1 = new CarImage();
+            carImage1.CarId = 2;
+            carImage1.Date = DateTime.Now;
+            carImage1.ImagePath = @"D:\aa\WhatsApp Images\IMG-20201209-WA0012.jpg";
+
+            carImagesManager.AddImage(carImage1);
         }
 
         private static void CarReturn()

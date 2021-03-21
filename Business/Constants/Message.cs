@@ -26,5 +26,6 @@ namespace Business.Constants
         public static string RentalUpdated = "Kiralama Kaydı Güncellendi!";
         public static string CarReturn = "Araç Teslim Alındı";
         public static string CarReturnError = "Araç Teslim Kaydı Oluşturulamadı.Bilgileri Kontrol Ediniz!";
+        public static string CarImageAdded = "Araç İçin Resim Eklendi";
     }
 }
