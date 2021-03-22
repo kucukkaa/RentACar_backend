@@ -40,5 +40,29 @@ namespace WepAPI.Controllers
             }
             return BadRequest(result.Message);
         }
+
+        [HttpPost("update")]
+
+        public IActionResult Update(CarImage image)
+        {
+            var result = _carImageService.Update(image);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpPost("delete")]
+
+        public IActionResult Delete(CarImage image)
+        {
+            var result = _carImageService.Delete(image);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
     }
 }
