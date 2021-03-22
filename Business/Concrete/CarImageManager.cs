@@ -36,6 +36,7 @@ namespace Business.Concrete
             return new SuccessResult(Message.CarImageAdded);
         }
 
+        [ValidationAspect(typeof(CarImageValidator))]
         public IResult Delete(CarImage image)
         {
             _carImageDal.Delete(image);
@@ -52,9 +53,16 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p => p.CarId == id));
         }
 
+        [ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(CarImage image)
         {
-            _carImageDal.Update(image);
+            IResult result = BusinessRules.Run(CheckIfCarImageLimitExceded(image.CarId));
+            if (result != null)
+            {
+                return result;
+            }
+
+            _carImageDal.Update(CarImageCorrection(image).Entity);
             return new SuccessResult(Message.CarImageUpdated);
         }
 
@@ -72,7 +80,7 @@ namespace Business.Concrete
         {
             if (image.ImagePath == null)
             {
-                image.ImagePath = @"D:\default.jpg";
+                image.ImagePath = @"C:\??.jpg";//DEFAULT JPG OR PNG PATH
             }
 
             string photoExtension = Path.GetExtension(image.ImagePath);
@@ -80,13 +88,14 @@ namespace Business.Concrete
             if (photoExtension.ToLower() == ".jpg" || photoExtension.ToLower() == ".png")
             {
                 string photoName = Guid.NewGuid() + photoExtension;
-                if (!Directory.Exists(@"D:\aaa\" + image.CarId))
+                if (!Directory.Exists(@"C:\??\" + image.CarId))//IF DIRECTORY DOESN'T EXIST
                 {
-                    Directory.CreateDirectory(@"D:\aaa\" + image.CarId);
+                    Directory.CreateDirectory(@"D:\??\" + image.CarId);
                 }
-                File.Copy((image.ImagePath), (@"D:\aaa\" + image.CarId + @"\" + photoName));
-                image.ImagePath = @"D:\aaa\" + image.CarId + @"\" + photoName;
+                File.Copy((image.ImagePath), (@"C:\??\" + image.CarId + @"\" + photoName));//COPY PHOTO TO DIRECTORY
+                image.ImagePath = @"C:\??\" + image.CarId + @"\" + photoName; 
                 image.Date = DateTime.Now;
+                
                 return new SuccessEntityResult<CarImage>(image);
             }
             return new ErrorEntityResult<CarImage>(Message.CarImageCantAdded);

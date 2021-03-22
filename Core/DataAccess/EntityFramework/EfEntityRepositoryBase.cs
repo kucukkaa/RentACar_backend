@@ -10,7 +10,7 @@ namespace Core.DataAccess.EntityFramework
 {
     public class EfEntityRepositoryBase<TEntity, TContext> : IEntityRepository<TEntity> where TEntity : class, IEntity, new() where TContext : DbContext, new()
     {
-        public virtual void Add(TEntity entity)
+        public void Add(TEntity entity)
         {
 
             using (TContext context = new TContext())
