@@ -88,6 +88,7 @@ namespace Business.Concrete
             if (photoExtension.ToLower() == ".jpg" || photoExtension.ToLower() == ".png")
             {
                 string photoName = Guid.NewGuid() + photoExtension;
+                
                 if (!Directory.Exists(@"C:\??\" + image.CarId))//IF DIRECTORY DOESN'T EXIST
                 {
                     Directory.CreateDirectory(@"D:\??\" + image.CarId);
@@ -101,5 +102,7 @@ namespace Business.Concrete
             return new ErrorEntityResult<CarImage>(Message.CarImageCantAdded);
             
         }
+
+
     }
 }

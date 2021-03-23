@@ -5,12 +5,13 @@ using System.Text;
 
 namespace Entities.Concrete
 {
-    public class User : IEntity
-    {
-        public int UserId { get; set; }
-        public string UserFirstName { get; set; }
-        public string UserLastName { get; set; }
-        public string UserEMail { get; set; }
-        public string UserPassword { get; set; }
-    }
+    //14. ders ödevi sırasında iptal edilmiştir.
+    //public class User : IEntity
+    //{
+    //    public int UserId { get; set; }
+    //    public string UserFirstName { get; set; }
+    //    public string UserLastName { get; set; }
+    //    public string UserEMail { get; set; }
+    //    public string UserPassword { get; set; }
+    //}
 }
