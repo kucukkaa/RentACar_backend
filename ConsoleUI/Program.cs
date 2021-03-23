@@ -186,64 +186,64 @@ namespace ConsoleUI
             Console.WriteLine(result.Message);
         }
 
-        private static void UpdateACarTest()
-        {
-            CarManager carManager = new CarManager(new EfCarDal());
+        //private static void UpdateACarTest()
+        //{
+        //    CarManager carManager = new CarManager(new EfCarDal());
 
-            var car1 = new Car();
-            car1.CarId = 1;
-            car1.DailyPrice = 200;
-            car1.BrandId = 1;
-            car1.ColorId = 1;
-            car1.Description = "nice car";
-            car1.ModelYear = 2021;
-
-
-            carManager.UpdateCar(car1);
-        }
-
-        private static void DeleteACarTest()
-        {
-            CarManager carManager = new CarManager(new EfCarDal());
-            var car1 = new Car();
-            car1.CarId = 2;
-
-            carManager.DeleteCar(car1);
-        }
-
-        private static void AddingANewCarTest()
-        {
-            CarManager carManager = new CarManager(new EfCarDal());
-
-            var car1 = new Car();
-            car1.BrandId = 3;
-            car1.ColorId = 2;
-            car1.DailyPrice = 7000;
-            car1.Description = "good car";
-            car1.ModelYear = 2001;
-
-            carManager.AddCar(car1);
-        }
-
-        private static void GetAllCarsTest()
-        {
-            CarManager carManager = new CarManager(new EfCarDal());
-
-            var result = carManager.GetCarDetails();
-
-            if (result.Success == true)
-            {
-                foreach (var car in result.Data)
-                {
-                    Console.WriteLine(car.CarId + " / " + car.BrandName + " / " + car.ColorName + " / " + car.DailyPrice);
-                }
-            }
-            else
-            {
-                Console.WriteLine(result.Message);
-            }
+        //    var car1 = new Car();
+        //    car1.CarId = 1;
+        //    car1.DailyPrice = 200;
+        //    car1.BrandId = 1;
+        //    car1.ColorId = 1;
+        //    car1.Description = "nice car";
+        //    car1.ModelYear = 2021;
 
 
-        }
+        //    carManager.UpdateCar(car1);
+        //}
+
+        //private static void DeleteACarTest()
+        //{
+        //    CarManager carManager = new CarManager(new EfCarDal());
+        //    var car1 = new Car();
+        //    car1.CarId = 2;
+
+        //    carManager.DeleteCar(car1);
+        //}
+
+        //private static void AddingANewCarTest()
+        //{
+        //    CarManager carManager = new CarManager(new EfCarDal());
+
+        //    var car1 = new Car();
+        //    car1.BrandId = 3;
+        //    car1.ColorId = 2;
+        //    car1.DailyPrice = 7000;
+        //    car1.Description = "good car";
+        //    car1.ModelYear = 2001;
+
+        //    carManager.AddCar(car1);
+        //}
+
+        //private static void GetAllCarsTest()
+        //{
+        //    CarManager carManager = new CarManager(new EfCarDal());
+
+        //    var result = carManager.GetCarDetails();
+
+        //    if (result.Success == true)
+        //    {
+        //        foreach (var car in result.Data)
+        //        {
+        //            Console.WriteLine(car.CarId + " / " + car.BrandName + " / " + car.ColorName + " / " + car.DailyPrice);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine(result.Message);
+        //    }
+
+
+        //}
     }
 }
