@@ -43,6 +43,7 @@ namespace Business.Concrete
             return new SuccessResult(Message.RentalDeleted);
         }
 
+        [CacheAspect]
         public IDataResult<List<RentalDetailDto>> GetRentalDetails()
         {
             return new SuccessDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
