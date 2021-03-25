@@ -2,6 +2,8 @@
 using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Performance;
+using Core.Aspects.Autofac.Transaction;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
 using Core.Utilities.Results;
@@ -24,6 +26,9 @@ namespace Business.Concrete
             _rentalDal = rentalDal;
         }
 
+        [PerformanceAspect(5)]
+        [TransactionScopeAspect]
+        [CacheRemoveAspect("IRentalService.Get")]
         [ValidationAspect(typeof(RentalValidator))]
         public IResult AddRental(Rental rental)
         {
@@ -38,6 +43,9 @@ namespace Business.Concrete
             return new SuccessResult(Message.RentalAdded);
         }
 
+        
+
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult DeleteRental(Rental rental)
         {
             _rentalDal.Delete(rental);
@@ -56,6 +64,7 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
         }
 
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult RentedCarReturn(int id)
         {
             foreach (var rentalItem in _rentalDal.GetAll())
@@ -70,7 +79,8 @@ namespace Business.Concrete
 
             return new ErrorResult(Message.CarReturnError);
         }
-
+        
+        [CacheRemoveAspect("IRentalService.Get")]
         public IResult UpdateRental(Rental rental)
         {
             _rentalDal.Update(rental);

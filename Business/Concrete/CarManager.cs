@@ -1,6 +1,8 @@
 ﻿using Business.Abstract;
 using Business.BusinessAspects.AutoFac;
 using Business.Constants;
+using Core.Aspects.Autofac.Caching;
+using Core.Aspects.Autofac.Transaction;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities;
@@ -24,6 +26,8 @@ namespace Business.Concrete
             _carImageService = carImageService;
         }
 
+        [TransactionScopeAspect]
+        [CacheRemoveAspect("ICarService.Get")]
         [SecuredOperation("car.add, admin")]
         public IResult AddCar(Car car)
         {
