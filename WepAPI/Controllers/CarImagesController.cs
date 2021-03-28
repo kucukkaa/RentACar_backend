@@ -54,10 +54,20 @@ namespace WepAPI.Controllers
         }
 
         [HttpPost("delete")]
-
         public IActionResult Delete(CarImage image)
         {
             var result = _carImageService.Delete(image);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
+
+        [HttpGet("getcarimagesbyid")]
+        public IActionResult GetCarImagesById(int id)
+        {
+            var result = _carImageService.GetImagesOfACar(id);
             if (result.Success)
             {
                 return Ok(result);
