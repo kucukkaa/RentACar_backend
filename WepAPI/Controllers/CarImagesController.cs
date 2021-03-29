@@ -64,5 +64,16 @@ namespace WepAPI.Controllers
             }
             return BadRequest(result.Message);
         }
+
+        [HttpPost("getcarimagesbyid")]
+        public IActionResult GetCarImagesById(int id)
+        {
+            var result = _carImageService.GetImagesOfACar(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result.Message);
+        }
     }
 }
