@@ -54,7 +54,6 @@ namespace WepAPI.Controllers
         }
 
         [HttpPost("delete")]
-
         public IActionResult Delete(CarImage image)
         {
             var result = _carImageService.Delete(image);
@@ -65,7 +64,7 @@ namespace WepAPI.Controllers
             return BadRequest(result.Message);
         }
 
-        [HttpPost("getcarimagesbyid")]
+        [HttpGet("getcarimagesbyid")]
         public IActionResult GetCarImagesById(int id)
         {
             var result = _carImageService.GetImagesOfACar(id);

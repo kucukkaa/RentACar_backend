@@ -33,7 +33,13 @@ namespace ConsoleUI
             //CarReturn();
 
 
-            AddCarImageTest();
+            //AddCarImageTest();
+            CarImageManager carImagesManager = new CarImageManager(new EfCarImageDal());
+            var result = carImagesManager.GetImagesOfACar(1);
+            Console.WriteLine(result.Data[0].ImagePath);
+            Console.WriteLine(result.Message);
+            Console.WriteLine(result.Success);
+
         }
 
         private static void AddCarImageTest()
