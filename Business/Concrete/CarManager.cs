@@ -18,17 +18,18 @@ namespace Business.Concrete
     {
         ICarDal _carDal;
         ICarImageService _carImageService;
+        
 
 
         public CarManager(ICarDal carDal, ICarImageService carImageService)
         {
             _carDal = carDal;
-            _carImageService = carImageService;
+            _carImageService = carImageService;           
         }
 
         [TransactionScopeAspect]
         [CacheRemoveAspect("ICarService.Get")]
-        [SecuredOperation("car.add, admin")]
+        //[SecuredOperation("car.add, admin")]
         public IResult AddCar(Car car)
         {
             _carDal.Add(car);
