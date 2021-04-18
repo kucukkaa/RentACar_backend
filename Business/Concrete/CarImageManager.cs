@@ -23,7 +23,7 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
 
-        [SecuredOperation("carImage.add, admin")]
+        //[SecuredOperation("carImage.add, admin")]
         [ValidationAspect(typeof(CarImageValidator))]
         public IResult AddImage(CarImage image)
         {
@@ -82,7 +82,7 @@ namespace Business.Concrete
         {
             if (image.ImagePath == null)
             {
-                image.ImagePath = @"C:\ReCapProject-Frontend\CarImages\default.jpg";//DEFAULT JPG OR PNG PATH
+                image.ImagePath = @"C:\Users\Alierk KÜÇÜK\source\repos\ReCapProject\WepAPI\CarImages\default.png";//DEFAULT JPG OR PNG PATH
             }
 
             string photoExtension = Path.GetExtension(image.ImagePath);
@@ -91,12 +91,12 @@ namespace Business.Concrete
             {
                 string photoName = Guid.NewGuid() + photoExtension;
                 
-                if (!Directory.Exists(@"C:\ReCapProject-Frontend\CarImages\" + image.CarId))//IF DIRECTORY DOESN'T EXIST
+                if (!Directory.Exists(@"C:\Users\Alierk KÜÇÜK\source\repos\ReCapProject\WepAPI\CarImages\" + image.CarId))//IF DIRECTORY DOESN'T EXIST
                 {
-                    Directory.CreateDirectory(@"C:\ReCapProject-Frontend\CarImages\" + image.CarId);
+                    Directory.CreateDirectory(@"C:\Users\Alierk KÜÇÜK\source\repos\ReCapProject\WepAPI\CarImages\" + image.CarId);
                 }
-                File.Copy((image.ImagePath), (@"C:\ReCapProject-Frontend\CarImages\" + image.CarId + @"\" + photoName));//COPY PHOTO TO DIRECTORY
-                image.ImagePath = @"C:\ReCapProject-Frontend\CarImages\" + image.CarId + @"\" + photoName; 
+                File.Copy((image.ImagePath), (@"C:\Users\Alierk KÜÇÜK\source\repos\ReCapProject\WepAPI\CarImages\" + image.CarId + @"\" + photoName));//COPY PHOTO TO DIRECTORY
+                image.ImagePath = @"C:\Users\Alierk KÜÇÜK\source\repos\ReCapProject\WepAPI\CarImages\" + image.CarId + @"\" + photoName; 
                 image.Date = DateTime.Now;
                 
                 return new SuccessEntityResult<CarImage>(image);
