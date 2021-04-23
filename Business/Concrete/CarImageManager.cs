@@ -7,10 +7,12 @@ using Core.Utilities.Business;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using Core.Utilities.Helpers;
 
 namespace Business.Concrete
 {
@@ -23,18 +25,20 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
 
-        [SecuredOperation("carImage.add, admin")]
+        //[SecuredOperation("carImage.add, admin")]
         [ValidationAspect(typeof(CarImageValidator))]
-        public IResult AddImage(CarImage image)
+        public IResult AddImage(IFormFile file, CarImage image)
         {
-            IResult result = BusinessRules.Run(CheckIfCarImageLimitExceded(image.CarId));
+            IResult result = BusinessRules.Run(CheckIfCarImageLimitExceded(image.CarId), CarImageCorrection(image));
 
             if (result != null)
             {
                 return result;
             }
 
-            _carImageDal.Add(CarImageCorrection(image).Entity);
+            image.ImagePath = FileStorageHelper.Add(file);
+            image.Date = DateTime.Now;
+            _carImageDal.Add(image);
             return new SuccessResult(Message.CarImageAdded);
         }
 
@@ -55,17 +59,17 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(p => p.CarId == id));
         }
 
-        [ValidationAspect(typeof(CarImageValidator))]
+        //[ValidationAspect(typeof(CarImageValidator))]
         public IResult Update(CarImage image)
         {
-            IResult result = BusinessRules.Run(CheckIfCarImageLimitExceded(image.CarId));
-            if (result != null)
-            {
-                return result;
-            }
+        //    IResult result = BusinessRules.Run(CheckIfCarImageLimitExceded(image.CarId));
+        //    if (result != null)
+        //    {
+        //        return result;
+        //    }
 
-            _carImageDal.Update(CarImageCorrection(image).Entity);
-            return new SuccessResult(Message.CarImageUpdated);
+        //    _carImageDal.Update(CarImageCorrection(image).Entity);
+               return new SuccessResult(Message.CarImageUpdated);
         }
 
         private IResult CheckIfCarImageLimitExceded(int carId)
@@ -78,32 +82,39 @@ namespace Business.Concrete
             return new SuccessResult();
         }
 
-        private  IEntityResult<CarImage> CarImageCorrection(CarImage image)
+        private  IResult CarImageCorrection(CarImage image)
         {
             if (image.ImagePath == null)
             {
-                image.ImagePath = @"C:\ReCapProject-Frontend\CarImages\default.jpg";//DEFAULT JPG OR PNG PATH
+                image.ImagePath = @"C:\Users\Alierk KÜÇÜK\source\repos\ReCapProject\WepAPI\CarImages\default.png";//DEFAULT JPG OR PNG PATH
             }
 
             string photoExtension = Path.GetExtension(image.ImagePath);
 
             if (photoExtension.ToLower() == ".jpg" || photoExtension.ToLower() == ".png")
             {
-                string photoName = Guid.NewGuid() + photoExtension;
+                //string photoName = Guid.NewGuid() + photoExtension;
                 
-                if (!Directory.Exists(@"C:\ReCapProject-Frontend\CarImages\" + image.CarId))//IF DIRECTORY DOESN'T EXIST
-                {
-                    Directory.CreateDirectory(@"C:\ReCapProject-Frontend\CarImages\" + image.CarId);
-                }
-                File.Copy((image.ImagePath), (@"C:\ReCapProject-Frontend\CarImages\" + image.CarId + @"\" + photoName));//COPY PHOTO TO DIRECTORY
-                image.ImagePath = @"C:\ReCapProject-Frontend\CarImages\" + image.CarId + @"\" + photoName; 
-                image.Date = DateTime.Now;
+                //if (!Directory.Exists(@"C:\Users\Alierk KÜÇÜK\source\repos\ReCapProject\WepAPI\CarImages\" + image.CarId))//IF DIRECTORY DOESN'T EXIST
+                //{
+                //    Directory.CreateDirectory(@"C:\Users\Alierk KÜÇÜK\source\repos\ReCapProject\WepAPI\CarImages\" + image.CarId);
+                //}
+                //File.Copy((image.ImagePath), (@"C:\Users\Alierk KÜÇÜK\source\repos\ReCapProject\WepAPI\CarImages\" + image.CarId + @"\" + photoName));//COPY PHOTO TO DIRECTORY
+                //image.ImagePath = @"C:\Users\Alierk KÜÇÜK\source\repos\ReCapProject\WepAPI\CarImages\" + image.CarId + @"\" + photoName; 
+                //image.Date = DateTime.Now;
                 
-                return new SuccessEntityResult<CarImage>(image);
+                return new SuccessResult();
             }
-            return new ErrorEntityResult<CarImage>(Message.CarImageCantAdded);
+            return new ErrorResult(Message.CarImageNotSuitable);
             
         }
+
+        private IResult FileSaver(IFormFile file)
+        {
+            var fileStorageSuccess = FileStorageHelper.Add(file);
+            return new SuccessResult();
+        }
+
 
 
     }

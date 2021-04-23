@@ -33,7 +33,7 @@ namespace Business.Concrete
         public IResult AddCar(Car car)
         {
             _carDal.Add(car);
-            _carImageService.AddImage(new CarImage { CarId = car.CarId });
+            //_carImageService.AddImage(new CarImage { CarId = car.CarId });
             return new SuccessResult(Message.CarAdded);
         }
 
