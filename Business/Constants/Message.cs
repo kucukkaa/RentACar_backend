@@ -41,5 +41,6 @@ namespace Business.Constants
         public static string SuccessfulLogin = "Bağlanma Başarılı";
         public static string AccessTokenCreated = "AccessToken Üretildi";
         public static string UserAdded= "Kullanıcı Eklendi.";
+        public static string CarImageNotSuitable = "Resim Ekleme İşlemi İçin Uygun Değil";
     }
 }
