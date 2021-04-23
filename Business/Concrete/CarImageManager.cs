@@ -82,7 +82,7 @@ namespace Business.Concrete
         {
             if (image.ImagePath == null)
             {
-                image.ImagePath = @"C:\ReCapProject-Frontend\CarImages\default.jpg";//DEFAULT JPG OR PNG PATH
+                image.ImagePath = @"C:\Users\alier\source\repos\kucukkaa\ReCapProject\Entities\CarImages\default.jpg";//DEFAULT JPG OR PNG PATH
             }
 
             string photoExtension = Path.GetExtension(image.ImagePath);
@@ -91,12 +91,12 @@ namespace Business.Concrete
             {
                 string photoName = Guid.NewGuid() + photoExtension;
                 
-                if (!Directory.Exists(@"C:\ReCapProject-Frontend\CarImages\" + image.CarId))//IF DIRECTORY DOESN'T EXIST
+                if (!Directory.Exists(@"C:\Users\alier\source\repos\kucukkaa\ReCapProject\Entities\CarImages\" + image.CarId))//IF DIRECTORY DOESN'T EXIST
                 {
-                    Directory.CreateDirectory(@"C:\ReCapProject-Frontend\CarImages\" + image.CarId);
+                    Directory.CreateDirectory(@"C:\Users\alier\source\repos\kucukkaa\ReCapProject\Entities\CarImages\" + image.CarId);
                 }
-                File.Copy((image.ImagePath), (@"C:\ReCapProject-Frontend\CarImages\" + image.CarId + @"\" + photoName));//COPY PHOTO TO DIRECTORY
-                image.ImagePath = @"C:\ReCapProject-Frontend\CarImages\" + image.CarId + @"\" + photoName; 
+                File.Copy((image.ImagePath), (@"C:\Users\alier\source\repos\kucukkaa\ReCapProject\Entities\CarImages\" + image.CarId + @"\" + photoName));//COPY PHOTO TO DIRECTORY
+                image.ImagePath = @"http://localhost:4200/CarImages/" + image.CarId + @"/" + photoName; 
                 image.Date = DateTime.Now;
                 
                 return new SuccessEntityResult<CarImage>(image);
