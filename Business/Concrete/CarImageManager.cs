@@ -36,7 +36,7 @@ namespace Business.Concrete
                 return result;
             }
 
-            image.ImagePath = FileStorageHelper.Add(file);
+            image.ImagePath = FileStorageHelper.Upload(file).Message;
             image.Date = DateTime.Now;
             _carImageDal.Add(image);
             return new SuccessResult(Message.CarImageAdded);
@@ -109,11 +109,11 @@ namespace Business.Concrete
             
         }
 
-        private IResult FileSaver(IFormFile file)
-        {
-            var fileStorageSuccess = FileStorageHelper.Add(file);
-            return new SuccessResult();
-        }
+        //private IResult FileSaver(IFormFile file)
+        //{
+        //    var fileStorageSuccess = FileStorageHelper.Add(file);
+        //    return new SuccessResult();
+        //}
 
 
 
