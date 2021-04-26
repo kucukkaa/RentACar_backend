@@ -12,6 +12,8 @@ namespace DataAccess.Concrete.EntityFramework
 {
     public class EfRentalDal : EfEntityRepositoryBase<Rental, RentACarDbContext>, IRentalDal
     {
+        
+
         public List<RentalDetailDto> GetRentalDetails()
         {
             using (RentACarDbContext context = new RentACarDbContext())
@@ -20,5 +22,7 @@ namespace DataAccess.Concrete.EntityFramework
                 return result.ToList();
             }
         }
+
+        
     }
 }

@@ -85,5 +85,16 @@ namespace WepAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getrentalsbycarid")]
+        public IActionResult GetRentalsByCarId(int carId)
+        {
+            var result = _rentalService.GetRentalsByCarId(carId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }
