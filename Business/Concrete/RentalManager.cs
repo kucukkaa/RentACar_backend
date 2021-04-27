@@ -66,7 +66,7 @@ namespace Business.Concrete
 
         public IDataResult<List<Rental>> GetRentalsByCarId(int carId)
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(r => r.CarId == carId));
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(p => p.CarId == carId));
         }
 
         [CacheRemoveAspect("IRentalService.Get")]
