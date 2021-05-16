@@ -141,5 +141,16 @@ namespace WepAPI.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getcardetailsbycolorandbrandid")]
+        public IActionResult GetCarDetailsByColorandbrand(string brandName, int colorId)
+        {
+            var result = _carService.GetCarDetailsByColorAndBrandId(brandName, colorId);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 }
